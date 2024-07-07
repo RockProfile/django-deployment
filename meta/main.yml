@@ -2,7 +2,7 @@
 galaxy_info:
   author: "Peter McDonald"
   role_name: "django_deployment"
-  namespace: "RockProfile"
+  namespace: "rockprofile"
   description: "Role to install and configure Django for deployment via mod_wsgi and Apache"
   company: "Rock Profile"
   issue_tracker_url: https://github.com/RockProfile/Django-deployment/issues
