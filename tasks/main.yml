@@ -1,0 +1,106 @@
+---
+- name: Check if required variables are defined
+  ansible.builtin.assert:
+    that:
+      - allowed_hosts is defined
+      - git_url is defined
+      - site_hostname is defined
+      - secret_key is defined
+      - project_name is defined
+
+- name: Install required packages
+  ansible.builtin.apt:
+    pkg:
+      - apache2
+      - certbot
+      - git
+      - libapache2-mod-wsgi-py3
+      - mod_wsgi
+      - python{{ django_deployment_python_version }}
+      - python3-certbot-apache
+  become: true
+
+- name: Start Apache service.
+  ansible.builtin.systemd_service:
+    name: apache2
+    state: started
+    enabled: true
+  become: true
+
+- name: Create www-data user
+  ansible.builtin.user:
+    name: www-data
+    shell: /bin/bash
+    system: true
+    createhome: false
+  become: true
+  notify: restart apache
+
+- name: Create a directory for the project
+  ansible.builtin.file:
+    path: /opt/{{ project_name }}
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0755
+  become: true
+
+- name: Create a static directory for the project
+  ansible.builtin.file:
+    path: /opt/{{ project_name }}/static
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0755
+  become: true
+
+- name: Create a media directory for the project
+  ansible.builtin.file:
+    path: /opt/{{ project_name }}/media
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0755
+  become: true
+
+- name: Create a virtual environment
+  ansible.builtin.command:
+    cmd: python{{ django_deployment_python_version }} -m venv /opt/{{ project_name }}/venv
+    creates: /opt/{{ project_name }}/venv
+  become_user: www-data
+  become: true
+  notify: restart apache
+
+- name: Clone the project
+  ansible.builtin.git:
+    repo: "{{ django_deployment_git_url }}"
+    dest: "/opt/{{ project_name }}/site/"
+    version: "{{ django_deployment_repo_version }}"
+    force: true
+  become_user: www-data
+  become: true
+  notify:
+    - git repository updated
+    - restart apache
+
+- name: Create a .env file
+  ansible.builtin.copy:
+    content: |
+      SECRET_KEY={{ secret_key }}
+      DEBUG={{ django_deployment_debug }}
+      ALLOWED_HOSTS={{ allowed_hosts }}
+    dest: /opt/{{ project_name }}/.env
+    owner: www-data
+    group: www-data
+    mode: 0644
+  become: true
+
+- name: Add a new site to Apache
+  ansible.builtin.template:
+    src: site.conf.j2
+    dest: /etc/apache2/sites-available/{{ project_name }}.conf
+    mode: 0644
+  become: true
+  notify: restart apache
+
+  # Link the conf file to sites-enabled

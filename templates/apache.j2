@@ -1,0 +1,31 @@
+<VirtualHost {{ site_hostname }}:80>
+    ServerName {{ site_hostname }}
+
+    ServerAdmin {{ django_deployment_apache_webmaster_email }}
+    DocumentRoot /var/www/html
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    Alias /static /opt/{{ project_name }}/static
+    <Directory /opt/{{ project_name }}/static>
+    Require all granted
+    </Directory>
+
+    Alias /media /opt/{{ project_name }}/media
+    <Directory /opt/{{ project_name }}/media>
+    Require all granted
+    </Directory>
+
+    <Directory /opt/{{ project_name }}/site/{{ django_deployment_site_module }}>
+    <Files wsgi.py>
+        Require all granted
+    </Files>
+    </Directory>
+
+    <IfDefine !wsgi_init>
+        WSGIScriptAlias / /opt/{{ project_name }}/site/{{ django_deployment_site_module }}/wsgi.py
+        WSGIDaemonProcess {{ django_deployment_site_module }} user=www-data group=www-data python-path=/opt/{{ project_name }}/site python-home=/opt/{{ project_name }}/venv
+        WSGIProcessGroup {{ django_deployment_site_module }}
+        Define wsgi_init 1
+    </IfDefine>
+</VirtualHost>

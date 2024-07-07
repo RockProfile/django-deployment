@@ -1,0 +1,22 @@
+---
+galaxy_info:
+  author: "Peter McDonald"
+  role_name: "django_deployment"
+  namespace: "RockProfile"
+  description: "Role to install and configure Django for deployment via mod_wsgi and Apache"
+  company: "Rock Profile"
+  issue_tracker_url: https://github.com/RockProfile/Django-deployment/issues
+  license: MIT
+  min_ansible_version: "2.1"
+  galaxy_tags:
+    - "web"
+    - "django"
+    - "apache"
+    - "mod"
+    - "wsgi"
+    - "deployment"
+  platforms:
+    - name: Debian
+      versions:
+        - "bookworm"
+dependencies: []
