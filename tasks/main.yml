@@ -42,7 +42,7 @@
     state: directory
     owner: www-data
     group: www-data
-    mode: 0755
+    mode: "0755"
   become: true
 
 - name: Create a static directory for the project
@@ -51,7 +51,7 @@
     state: directory
     owner: www-data
     group: www-data
-    mode: 0755
+    mode: "0755"
   become: true
 
 - name: Create a media directory for the project
@@ -60,7 +60,7 @@
     state: directory
     owner: www-data
     group: www-data
-    mode: 0755
+    mode: "0755"
   become: true
 
 - name: Create a virtual environment
@@ -92,14 +92,14 @@
     dest: /opt/{{ project_name }}/.env
     owner: www-data
     group: www-data
-    mode: 0644
+    mode: "0644"
   become: true
 
 - name: Add a new site to Apache
   ansible.builtin.template:
     src: site.conf.j2
     dest: /etc/apache2/sites-available/{{ project_name }}.conf
-    mode: 0644
+    mode: "0644"
   become: true
   notify: restart apache
 
