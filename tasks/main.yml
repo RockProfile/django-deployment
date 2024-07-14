@@ -103,4 +103,9 @@
   become: true
   notify: restart apache
 
-  # Link the conf file to sites-enabled
+- name: Create a media directory for the project
+  ansible.builtin.file:
+    src: /etc/apache2/sites-available/{{ project_name }}.conf
+    dest: /etc/apache2/sites-enabled/{{ project_name }}.conf
+    state: link
+  become: true
