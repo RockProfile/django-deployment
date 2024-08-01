@@ -11,6 +11,7 @@
 - name: Install required packages
   ansible.builtin.apt:
     pkg:
+      - acl
       - apache2
       - certbot
       - git
