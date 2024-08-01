@@ -67,7 +67,6 @@
     cmd: python{{ django_python_version }} -m venv /opt/{{ django_project_name }}/venv
     creates: /opt/{{ django_project_name }}/venv
   become_user: www-data
-  become: true
   notify: restart apache
 
 - name: Clone the project
@@ -77,7 +76,6 @@
     version: "{{ django_repo_version }}"
     force: true
   become_user: www-data
-  become: true
   notify:
     - git repository updated
     - restart apache
