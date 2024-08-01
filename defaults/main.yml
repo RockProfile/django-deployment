@@ -1,6 +1,6 @@
 ---
-django_deployment_apache_webmaster_email: webmaster@localhost
-django_deployment_debug: false
-django_deployment_python_version: 3.11
-django_deployment_repo_version: master
-django_deployment_site_module: site
+django_apache_webmaster_email: webmaster@localhost
+django_debug: false
+django_python_version: 3.11
+django_repo_version: master
+django_site_module: site

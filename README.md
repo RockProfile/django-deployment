@@ -28,23 +28,23 @@ Role Variables
 
 The following variables must be defined in the playbook:
 
-### allowed_hosts
+### django_allowed_hosts
 
 Defines the allowed hosts for the Django application.
 
-### git_url
+### django_git_url
 
 Define the URL of the Git repository that contains the Django application.ß
 
-### site_hostname
+### django_site_hostname
 
 Define the hostname of the Django application for Apache configuration.
 
-### secret_key
+### django_secret_key
 
 Define the secret key of the Django application.
 
-### project_name
+### django_project_name
 
 Define the URL of the Git repository that contains the Django application.
 
@@ -52,23 +52,23 @@ Define the URL of the Git repository that contains the Django application.
 
 The following optional variables can be defined in the playbook:
 
-### django_deployment_apache_webmaster_email
+### django_apache_webmaster_email
 
 Defines the email address of the webmaster. The default value is `webmaster@localhost`.
 
-### django_deployment_debug
+### django_debug
 
 Defines the debug mode of the Django application. The default value is `false`.
 
-### django_deployment_python_version
+### django_python_version
 
 Defines the version of Python to use. The default value is `3.11`.
 
-### django_deployment_repo_version
+### django_repo_version
 
 Defines the branch of the Git repository to deploy. The default value is `master`.
 
-### django_deployment_site_module
+### django_site_module
 
 Defines the name of the Django application module. The default value is `site`.
 
