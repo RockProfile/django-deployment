@@ -34,7 +34,7 @@ Defines the allowed hosts for the Django application.
 
 ### django_git_url
 
-Define the URL of the Git repository that contains the Django application.ß
+Define the URL of the Git repository that contains the Django application.
 
 ### django_site_hostname
 
