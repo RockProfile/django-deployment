@@ -8,7 +8,7 @@
 
 - name: Run migrations
   ansible.builtin.command:
-    cmd: /opt/{{ django_project_name }}/venv/bin/python manage.py migrate
+    cmd: /opt/{{ django_project_name }}/venv/bin/python /opt/{{ django_project_name }}/manage.py migrate
   register: result
   changed_when: "'No migrations to apply' not in result.stdout"
   become_user: www-data
