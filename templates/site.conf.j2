@@ -24,7 +24,7 @@
 
     <IfDefine !wsgi_init>
         WSGIScriptAlias / /opt/{{ django_project_name }}/site/{{ django_site_module }}/wsgi.py
-        WSGIDaemonProcess {{ django_site_module }} user=www-data group=www-data python-path=/opt/{{ django_project_name }}/site python-home=/opt/{{ project_name }}/venv
+        WSGIDaemonProcess {{ django_site_module }} user=www-data group=www-data python-path=/opt/{{ django_project_name }}/site python-home=/opt/{{ django_project_name }}/venv
         WSGIProcessGroup {{ django_site_module }}
         Define wsgi_init 1
     </IfDefine>
