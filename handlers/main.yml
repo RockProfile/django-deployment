@@ -6,6 +6,16 @@
   become: true
   listen: restart apache
 
+- name: Install Django
+  ansible.builtin.command:
+    chdir: /opt/{{ django_project_name }}/site
+    cmd: /opt/{{ django_project_name }}/venv/bin/pip install -r requirements.txt
+  register: result
+  changed_when: "'Successfully installed' in result.stdout"
+  become_user: www-data
+  become: true
+  listen: git repository updated
+
 - name: Run migrations
   ansible.builtin.command:
     chdir: /opt/{{ django_project_name }}/site
@@ -22,16 +32,6 @@
     cmd: /opt/{{ django_project_name }}/venv/bin/python manage.py collectstatic --noinput
   register: result
   changed_when: "'0 static files copied to' not in result.stdout"
-  become_user: www-data
-  become: true
-  listen: git repository updated
-
-- name: Install Django
-  ansible.builtin.command:
-    chdir: /opt/{{ django_project_name }}/site
-    cmd: /opt/{{ django_project_name }}/venv/bin/pip install -r requirements.txt
-  register: result
-  changed_when: "'Successfully installed' in result.stdout"
   become_user: www-data
   become: true
   listen: git repository updated
