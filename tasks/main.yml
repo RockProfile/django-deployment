@@ -65,7 +65,8 @@
 
 - name: Create a virtual environment
   ansible.builtin.command:
-    cmd: python{{ django_python_version }} -m venv /opt/{{ django_project_name }}/venv
+    chdir: /opt/{{ django_project_name }}/site
+    cmd: python{{ django_python_version }} -m venv venv
     creates: /opt/{{ django_project_name }}/venv
   become_user: www-data
   become: true
