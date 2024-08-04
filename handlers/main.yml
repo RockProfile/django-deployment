@@ -8,7 +8,7 @@
 
 - name: Run migrations
   ansible.builtin.command:
-    cmd: /opt/{{ django_project_name }}/venv/bin/python /opt/{{ django_project_name }}/manage.py migrate
+    cmd: /opt/{{ django_project_name }}/venv/bin/python /opt/{{ django_project_name }}/site/manage.py migrate
   register: result
   changed_when: "'No migrations to apply' not in result.stdout"
   become_user: www-data
@@ -17,7 +17,7 @@
 
 - name: Collect static files
   ansible.builtin.command:
-    cmd: /opt/{{ django_project_name }}/venv/bin/python manage.py collectstatic --noinput
+    cmd: /opt/{{ django_project_name }}/venv/bin/python /opt/{{ django_project_name }}/site/manage.py collectstatic --noinput
   register: result
   changed_when: "'0 static files copied to' not in result.stdout"
   become_user: www-data
@@ -26,7 +26,7 @@
 
 - name: Install Django
   ansible.builtin.command:
-    cmd: /opt/{{ django_project_name }}/venv/bin/pip install -r requirements.txt
+    cmd: /opt/{{ django_project_name }}/venv/bin/pip install -r /opt/{{ django_project_name }}/site/requirements.txt
   register: result
   changed_when: "'Successfully installed' in result.stdout"
   become_user: www-data
