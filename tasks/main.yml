@@ -17,6 +17,7 @@
       - git
       - libapache2-mod-wsgi-py3
       - python{{ django_python_version }}
+      - python{{ django_python_version }}-venv
       - python3-certbot-apache
   become: true
 
