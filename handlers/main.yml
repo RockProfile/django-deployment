@@ -31,9 +31,9 @@
     chdir: /opt/{{ django_project_name }}/site
     cmd: /opt/{{ django_project_name }}/venv/bin/python manage.py ensure_super_user
   environment:
-    DJANGO_SUPERUSER_USERNAME: "{{ home_site_admin_username }}"
-    DJANGO_SUPERUSER_EMAIL: "{{ home_site_admin_email }}"
-    DJANGO_SUPERUSER_PASSWORD: "{{ home_site_admin_password }}"
+    DJANGO_SUPERUSER_EMAIL: "{{ django_superuser_email }}"
+    DJANGO_SUPERUSER_PASSWORD: "{{ django_superuser_password }}"
+    DJANGO_SUPERUSER_USERNAME: "{{ django_superuser_username }}"
   changed_when: "'Superuser created successfully' in result.stdout"
   become_user: www-data
   become: true

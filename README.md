@@ -48,6 +48,18 @@ Define the secret key of the Django application.
 
 Define the URL of the Git repository that contains the Django application.
 
+### django_superuser_username
+
+The username of the Django superuser.
+
+### django_superuser_password
+
+The password of the Django superuser.
+
+### django_superuser_email
+
+The email address of the Django superuser.
+
 ## Optional Variables
 
 The following optional variables can be defined in the playbook:

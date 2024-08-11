@@ -4,9 +4,12 @@
     that:
       - django_allowed_hosts is defined
       - django_git_url is defined
-      - django_site_hostname is defined
-      - django_secret_key is defined
       - django_project_name is defined
+      - django_secret_key is defined
+      - django_site_hostname is defined
+      - django_superuser_email is defined
+      - django_superuser_password is defined
+      - django_superuser_username is defined
 
 - name: Install required packages
   ansible.builtin.apt:
