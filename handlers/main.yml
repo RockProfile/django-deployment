@@ -26,6 +26,19 @@
   become: true
   listen: git repository updated
 
+- name: Create a superuser
+  ansible.builtin.command:
+    chdir: /opt/{{ django_project_name }}/site
+    cmd: /opt/{{ django_project_name }}/venv/bin/python manage.py createsuperuser --noinput
+  environment:
+    DJANGO_SUPERUSER_USERNAME: "{{ home_site_admin_username }}"
+    DJANGO_SUPERUSER_EMAIL: "{{ home_site_admin_email }}"
+    DJANGO_SUPERUSER_PASSWORD: "{{ home_site_admin_password }}"
+  changed_when: "'Superuser created successfully' in result.stdout"
+  become_user: www-data
+  become: true
+  listen: git repository updated
+
 - name: Collect static files
   ansible.builtin.command:
     chdir: /opt/{{ django_project_name }}/site
